@@ -134,12 +134,22 @@ void c(int currPosY, int currPosX,char site[][sitebigandsmell]) {
     else {
         int f = CountList(head);
         for (int m = f; m != 0;m--) {
+            int* v = NULL;
             if (m == f) {
-                int v[] = { ReadValue(m, head) };
+                v =  ReadValue(m, head) ;
             }
-            //ApplyValue(f, char y_x, int value, head);
+            ApplyValue(m, 'y', v[1], head);
         }
     }
+    int f = CountList(head);
+    for (int m = f; m != 0; m--) {
+        int* v = NULL;
+        if (m == f) {
+            v = ReadValue(m, head);
+        }
+        ApplyValue(m, 'x', v[0], head);
+    }
+    return;
 }
 int Generate_random_numbers_from_1_to_1000() {
     srand(time(NULL));

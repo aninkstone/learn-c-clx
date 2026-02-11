@@ -43,8 +43,7 @@ void DestroyList(struct Node* head) {
 	return;
 }
 
-int ReadValue(int index, struct Node* head) {
-	int return_use__1X2Y[2] = { 0 };
+int* ReadValue(int index, int y_x, struct Node* head) {
 	struct HiddenHead* headPtr = (HiddenHead*)head;
 	struct Node* ptr = (Node*)head;
 
@@ -52,9 +51,7 @@ int ReadValue(int index, struct Node* head) {
 		for (int b = 0; b < index; b++) {
 			ptr = ptr->next;
 		}
-		return_use__1X2Y[0] = ptr->x;
-		return_use__1X2Y[1] = ptr->y;
-		return (int)return_use__1X2Y;
+		return 0;
 	}
 	else {
 		return NULL;

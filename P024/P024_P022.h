@@ -58,7 +58,7 @@ extern "C" {
         * @param head 链表头节点指针
         * @return float 读取到的浮点数值，索引越界时返回default_value
         */
-    int ReadValue(int index, struct Node* head);
+    int* ReadValue(int index, struct Node* head);
 
     /**
         * @brief 统计链表节点数量
