@@ -1,0 +1,45 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "H:\\LearnC\\C\\P\u603B\u548C\\P020\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A6B07E1A-4543-46EE-ADB9-279112DF8F35}|P020.vcxproj|H:\\LearnC\\C\\P\u603B\u548C\\P020\\P020.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A6B07E1A-4543-46EE-ADB9-279112DF8F35}|P020.vcxproj|solutionrelative:P020.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 46,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "P020.cpp",
+              "DocumentMoniker": "H:\\LearnC\\C\\P\u603B\u548C\\P020\\P020.cpp",
+              "RelativeDocumentMoniker": "P020.cpp",
+              "ToolTip": "H:\\LearnC\\C\\P\u603B\u548C\\P020\\P020.cpp",
+              "RelativeToolTip": "P020.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-28T08:06:27.624Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
