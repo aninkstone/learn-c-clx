@@ -43,8 +43,36 @@ void DestroyList(struct Node* head) {
 	return;
 }
 
-int* ReadValue(int index, int y_x, struct Node* head) {
+int ReadValue(int index, int y_x, struct Node* head) {
 	struct HiddenHead* headPtr = (HiddenHead*)head;
+	struct Node* ptr = (Node*)head;
+	int _x_ = 0;
+	int _y_ = 0;
+	switch (y_x) {
+	case 'y':
+		if (index < headPtr->countList) {
+			for (int b = 0; b < index; b++) {
+				ptr = ptr->next;
+			}
+			ptr->y = _y_;
+		}
+		else {
+			return NULL;
+		}
+		return _y_;
+	case 'x':
+		if (index < headPtr->countList) {
+			for (int b = 0; b < index; b++) {
+				ptr = ptr->next;
+			}
+			ptr->x = _x_;
+		}
+		else {
+			return NULL;
+		}
+		break;
+	}
+	/*struct HiddenHead* headPtr = (HiddenHead*)head;
 	struct Node* ptr = (Node*)head;
 
 	if (index < headPtr->countList) {
@@ -56,8 +84,8 @@ int* ReadValue(int index, int y_x, struct Node* head) {
 	else {
 		return NULL;
 	}
+*/
 }
-
 bool ApplyValue(int index, char y_x, int value, struct Node* head) {
 	struct HiddenHead* headPtr = (HiddenHead*)head;
 	struct Node* ptr = (Node*)head;

@@ -125,35 +125,39 @@ void k(char site[][sitebigandsmell]) {
     }
     return;
 }
-void c(int currPosY, int currPosX,char site[][sitebigandsmell]) {
+void move(int currPosY, int currPosX,char site[][sitebigandsmell]) {
+    int d = 0;
+    int f = 0;
+    int o = 0;
     int nn = CountList(head);
     if (nn == 1) {
         site[currPosY][currPosX] = 0;
         currPosY = currPosY - 1;
     }
     else {
-        int f = CountList(head);
-        for (int m = f; m != 0;m--) {
-            int* v = NULL;
-            if (m == f) {
-                v =  ReadValue(m, head) ;
+        f = CountList(head);
+        for (int n = 1; n < f; n++) {
+            if (n + 1 == f + 1) {
+                d = ReadValue(n + 1, 'x', head);
             }
-            ApplyValue(m, 'y', v[1], head);
+            o = ReadValue(n, 'x', head);
+            if (n + 1 == f + 1) {
+                return;
+            }
+            else {
+                ApplyValue(n + 1, 'x', o, head);
+            }
         }
-    }
-    int f = CountList(head);
-    for (int m = f; m != 0; m--) {
-        int* v = NULL;
-        if (m == f) {
-            v = ReadValue(m, head);
-        }
-        ApplyValue(m, 'x', v[0], head);
+        ApplyValue(1, 'x', , head);
     }
     return;
 }
 int Generate_random_numbers_from_1_to_1000() {
     srand(time(NULL));
-    // 生成1到1000的随机数
     int random_number = rand() % 1000 + 1;
     return random_number;
+}
+
+int Swap(struct Node* src, struct Node* des) {
+
 }
