@@ -14,22 +14,33 @@ struct Node* CreateList(size_t length) {
 		return 0;
 	}
 	struct HiddenHead* head = (struct HiddenHead*)malloc(sizeof(struct HiddenHead));
-	struct HiddenHead* h = head;
+	struct HiddenHead* h = NULL;
 	if (head == NULL) {
-		return 0;
+		DestroyList((Node*)head);
+		return NULL;
 	}
 	memset((void*)head, 0, sizeof(struct Node));
 	head->countList = length;
 	struct Node* ptr = (Node*)head;
 	for (int o = 0; o < length; o++) {
 		if (ptr->next == NULL) {
-			ptr->next = (struct Node*)malloc(sizeof(struct Node));
+			if (o < 4) {
+				ptr->next = (struct Node*)malloc(sizeof(struct Node));
+				if (ptr->next == NULL) {
+					DestroyList((Node*)head);
+					return NULL;
+				}
+				memset((void*)ptr->next, 0, sizeof(struct Node));
+			}
+			else {
+				ptr->next = NULL;
+			}
 			ptr->up = (struct Node*)h;
-			h = (struct HiddenHead*)ptr->next;
-			memset((void*)ptr->next, 0, sizeof(struct Node));
+			h = (struct HiddenHead*)ptr;
 		}
 		ptr = ptr->next;
 	}
+	head->up = NULL;
 	return (Node*)head;
 }
 
@@ -69,13 +80,71 @@ struct Node* InsertAfter(struct Node* target) {
 	target->next = c;
 	c->up == target;
 	c->next == targettwo;
+	return c;
 }
 
 struct Node* InsertBefore(struct Node* target) {
+	if () {
+
+	}
 	struct Node* c = NULL;
 	c = (struct Node*)malloc(sizeof(struct Node));
 	struct Node* targettwo = target->up;
 	target->up = c;
 	c->next == target;
 	c->up == targettwo;
+	return c;
+}
+
+bool DeleteNode(struct Node* head, struct Node* node) {
+	struct Node* h = head;
+	for (; true;) {
+		if (h == node) {
+			free(h);
+			return true;
+			if (h->next == NULL) {
+				return false;
+			}
+		}
+		h = h->next;
+	}
+}
+
+struct Node* PreviousNode(struct Node* node) {
+	return node->up;
+}
+
+struct Node* NextNode(struct Node* node) {
+	return node->next;
+}
+
+bool IsTail(struct Node* node) {
+	if (node->next == NULL) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool IsHead(struct Node* node) {
+	if (node->up == NULL) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+size_t GetListLength(struct Node* head) {
+	struct HiddenHead* headPtr = (HiddenHead*)head;
+	return headPtr->countList;
+}
+
+struct Node* GetNodeByIndex(struct Node* head, size_t index) {
+	struct Node* b = head;
+	for (int o = 0; o < index; o++) {
+		b = b->next;
+	}
+	return b;
 }
