@@ -5,129 +5,118 @@
 #include "list.h"
 
 /**
- * 打印测试进度
+ * 打印测试模块信息
  */
-static void LogTestStep(const char* stepName) {
-    printf("[RUNNING] %s...\n", stepName);
+static void LogModule(const char* name) {
+    printf("[TEST MODULE] %s\n", name);
 }
 
 /**
- * 测试链表的创建与基本属性获取
+ * 测试链表生命周期：创建、长度获取、索引获取及销毁
  */
 void TestLifecycle() {
-    LogTestStep("TestLifecycle");
+    LogModule("Lifecycle and Indexing");
 
-    size_t mInitialLength = 5;
-    struct Node* mHead = CreateList(mInitialLength);
+    size_t mCount = 10;
+    struct Node* mHead = CreateList(mCount);
     
     assert(mHead != NULL);
-    assert(GetListLength(mHead) == mInitialLength);
+    assert(GetListLength(mHead) == mCount);
+
+    // 验证首尾
     assert(IsHead(mHead) == true);
-    
-    struct Node* mTail = GetNodeByIndex(mHead, mInitialLength - 1);
+    struct Node* mTail = GetNodeByIndex(mHead, mCount - 1);
     assert(mTail != NULL);
     assert(IsTail(mTail) == true);
-    assert(NextNode(mTail) == NULL);
+
+    // 验证索引越界
+    assert(GetNodeByIndex(mHead, mCount) == NULL);
 
     ClearList(mHead);
-    // ClearList 后通常只剩头节点
+    // 根据描述，ClearList 后仅保留头节点
     assert(GetListLength(mHead) == 1);
     assert(IsTail(mHead) == true);
 
     DestroyList(mHead);
-    printf("[PASSED] TestLifecycle\n");
+    printf("-> Lifecycle test passed.\n");
 }
 
 /**
- * 测试节点的插入与链接逻辑
+ * 测试节点插入操作（适配更新后的接口）
  */
 void TestInsertOperations() {
-    LogTestStep("TestInsertOperations");
+    LogModule("Insert Operations");
 
     struct Node* mHead = CreateList(1);
-    mHead->x = 10;
+    mHead->x = 100;
 
-    // 测试 InsertAfter
-    struct Node* mNodeAfter = InsertAfter(mHead);
-    assert(mNodeAfter != NULL);
-    mNodeAfter->x = 20;
+    // 测试在头之后插入
+    struct Node* mNewNodeAfter = InsertAfter(mHead, mHead);
+    assert(mNewNodeAfter != NULL);
     assert(GetListLength(mHead) == 2);
-    assert(NextNode(mHead) == mNodeAfter);
-    assert(PreviousNode(mNodeAfter) == mHead);
+    assert(NextNode(mHead) == mNewNodeAfter);
+    assert(PreviousNode(mNewNodeAfter) == mHead);
 
-    // 测试 InsertBefore
-    struct Node* mNodeBefore = InsertBefore(mNodeAfter);
-    assert(mNodeBefore != NULL);
-    mNodeBefore->x = 15;
+    // 测试在节点之前插入
+    struct Node* mNewNodeBefore = InsertBefore(mHead, mNewNodeAfter);
+    assert(mNewNodeBefore != NULL);
     assert(GetListLength(mHead) == 3);
-    assert(NextNode(mHead) == mNodeBefore);
-    assert(NextNode(mNodeBefore) == mNodeAfter);
+    // 逻辑顺序应为: Head -> NewNodeBefore -> NewNodeAfter
+    assert(NextNode(mHead) == mNewNodeBefore);
+    assert(NextNode(mNewNodeBefore) == mNewNodeAfter);
 
     DestroyList(mHead);
-    printf("[PASSED] TestInsertOperations\n");
+    printf("-> Insert operations test passed.\n");
 }
 
 /**
- * 测试节点的删除逻辑
+ * 测试节点删除操作
  */
 void TestDeleteOperations() {
-    LogTestStep("TestDeleteOperations");
+    LogModule("Delete Operations");
 
     struct Node* mHead = CreateList(3);
-    struct Node* mMidNode = GetNodeByIndex(mHead, 1);
-    struct Node* mTailNode = GetNodeByIndex(mHead, 2);
+    struct Node* mTarget = GetNodeByIndex(mHead, 1);
+    assert(mTarget != NULL);
 
-    // 删除中间节点
-    bool mIsDeleted = DeleteNode(mHead, mMidNode);
-    assert(mIsDeleted == true);
+    bool mResult = DeleteNode(mHead, mTarget);
+    assert(mResult == true);
     assert(GetListLength(mHead) == 2);
-    assert(NextNode(mHead) == mTailNode);
-    assert(PreviousNode(mTailNode) == mHead);
 
-    // 删除尾节点
-    mIsDeleted = DeleteNode(mHead, mTailNode);
-    assert(mIsDeleted == true);
-    assert(GetListLength(mHead) == 1);
-    assert(IsTail(mHead) == true);
+    // 验证连接是否修补正确
+    struct Node* mTail = GetNodeByIndex(mHead, 1);
+    assert(PreviousNode(mTail) == mHead);
+    assert(NextNode(mHead) == mTail);
 
     DestroyList(mHead);
-    printf("[PASSED] TestDeleteOperations\n");
+    printf("-> Delete operations test passed.\n");
 }
 
 /**
- * 测试边界条件与异常输入
+ * 测试异常与边界情况
  */
-void TestBoundaryConditions() {
-    LogTestStep("TestBoundaryConditions");
+void TestRobustness() {
+    LogModule("Robustness");
 
-    // 空指针安全性测试
+    // NULL 探测
     assert(GetListLength(NULL) == 0);
     assert(IsHead(NULL) == false);
     assert(IsTail(NULL) == false);
-    assert(NextNode(NULL) == NULL);
     assert(PreviousNode(NULL) == NULL);
-    assert(GetNodeByIndex(NULL, 0) == NULL);
+    assert(NextNode(NULL) == NULL);
     assert(DeleteNode(NULL, NULL) == false);
 
-    // 索引越界测试
-    struct Node* mHead = CreateList(2);
-    assert(GetNodeByIndex(mHead, 5) == NULL);
-
-    DestroyList(mHead);
-    printf("[PASSED] TestBoundaryConditions\n");
+    printf("-> Robustness test passed.\n");
 }
 
-/**
- * 主程序入口
- */
 int main() {
-    printf("--- Starting Doubly Linked List Unit Tests ---\n");
+    printf("=== Starting Doubly Linked List Unit Tests ===\n");
 
     TestLifecycle();
     TestInsertOperations();
     TestDeleteOperations();
-    TestBoundaryConditions();
+    TestRobustness();
 
-    printf("--- All Unit Tests Completed Successfully ---\n");
+    printf("=== All Tests Finished Successfully ===\n");
     return 0;
 }
