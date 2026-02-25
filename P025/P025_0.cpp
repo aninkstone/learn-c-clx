@@ -50,6 +50,8 @@ struct Node* CreateList(size_t length) {
 		ptr = ptr->next;
 	}
 	head->up = NULL;
+	struct HiddenHead* headPtr = (HiddenHead*)head;
+	headPtr->countList = length;
 	return (Node*)head;
 }
 
@@ -81,26 +83,32 @@ void ClearList(struct Node* head) {
 	}
 	head->next = NULL;
 	head->up = NULL;
+	struct HiddenHead* headPtr = (HiddenHead*)head;
+	headPtr->countList = 1;
 	return;
 }
 
-struct Node* InsertAfter(struct Node* target) {
+struct Node* InsertAfter(struct Node* head, struct Node* target) {
 	struct Node* c = NULL;
 	c = (struct Node*)malloc(sizeof(struct Node));
 	struct Node* targettwo = target->next;
 	target->next = c;
 	c->up == target;
 	c->next == targettwo;
+	struct HiddenHead* headPtr = (HiddenHead*)head;
+	headPtr->countList + 1;
 	return c;
 }
 
-struct Node* InsertBefore(struct Node* target) {
+struct Node* InsertBefore(struct Node* head,struct Node* target) {
 	struct Node* c = NULL;
 	c = (struct Node*)malloc(sizeof(struct Node));
 	struct Node* targettwo = target->up;
 	target->up = c;
 	c->next == target;
 	c->up == targettwo;
+	struct HiddenHead* headPtr = (HiddenHead*)head;
+	headPtr->countList + 1;
 	return c;
 }
 
@@ -115,6 +123,8 @@ bool DeleteNode(struct Node* head, struct Node* node) {
 			n = h->up;
 			n->next = h->next;
 			free(h);
+			struct HiddenHead* headPtr = (HiddenHead*)head;
+			headPtr->countList - 1;
 			return true;
 		}
 		m = IsTail(h);

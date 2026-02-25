@@ -29,10 +29,10 @@ void ClearList(struct Node* head);
  */
 
 // 在指定节点之后插入新节点
-struct Node* InsertAfter(struct Node* target);
+struct Node* InsertAfter(struct Node* head, struct Node* target);
 
 // 在指定节点之前插入新节点
-struct Node* InsertBefore(struct Node* target);
+struct Node* InsertBefore(struct Node* head,struct Node* target);
 
 // 将节点从链表中移除并释放内存
 bool DeleteNode(struct Node* head, struct Node* node);
