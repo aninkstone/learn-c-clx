@@ -10,6 +10,15 @@ struct HiddenHead {
 };
 
 struct Node* CreateList(size_t length) {
+	if (length == 1) {
+		struct HiddenHead* head = (struct HiddenHead*)malloc(sizeof(struct HiddenHead));
+		if (head == NULL) {
+			return NULL;
+		}
+		memset((void*)head, 0, sizeof(struct Node));
+		head->next = NULL;
+		head->up = NULL;
+	}
 	if (length == 0) {
 		return 0;
 	}
@@ -70,6 +79,8 @@ void ClearList(struct Node* head) {
 			return;
 		}
 	}
+	head->next = NULL;
+	head->up = NULL;
 	return;
 }
 
@@ -84,9 +95,6 @@ struct Node* InsertAfter(struct Node* target) {
 }
 
 struct Node* InsertBefore(struct Node* target) {
-	if () {
-
-	}
 	struct Node* c = NULL;
 	c = (struct Node*)malloc(sizeof(struct Node));
 	struct Node* targettwo = target->up;

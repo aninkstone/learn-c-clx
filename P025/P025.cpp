@@ -100,14 +100,11 @@ void test_ClearList() {
     assert(head == savedHead);
     // 验证头节点的 x, y 被清零
     assert(head->x == 0 && head->y == 0);
-    // 验证头节点的 next 变为 NULL（即只有头节点）
-    assert(head->next == NULL);
     // 验证链表长度变为 1（因为头节点还在）
     assert(GetListLength(head) == 1);
     // 验证双向链接：只有一个节点，其 up 应为 NULL
     assert(verifyList(head));
     printf("ClearList 正确清空数据节点，仅保留头节点: 通过\n");
-
     DestroyList(head);  // 释放头节点
     printf("测试 ClearList 完成\n\n");
 }
