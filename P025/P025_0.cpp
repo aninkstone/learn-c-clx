@@ -105,14 +105,21 @@ struct Node* InsertBefore(struct Node* target) {
 }
 
 bool DeleteNode(struct Node* head, struct Node* node) {
+	bool m = 0;
 	struct Node* h = head;
 	for (; true;) {
 		if (h == node) {
+			struct Node* n = h;
+			n = n->next;
+			n->up = h->up;
+			n = h->up;
+			n->next = h->next;
 			free(h);
-			if (h->next == NULL) {
-				return false;
-			}
 			return true;
+		}
+		m = IsTail(h);
+		if (m == true) {
+			return false;
 		}
 		h = h->next;
 	}
