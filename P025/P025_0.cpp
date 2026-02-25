@@ -109,10 +109,10 @@ bool DeleteNode(struct Node* head, struct Node* node) {
 	for (; true;) {
 		if (h == node) {
 			free(h);
-			return true;
 			if (h->next == NULL) {
 				return false;
 			}
+			return true;
 		}
 		h = h->next;
 	}
